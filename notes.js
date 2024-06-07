@@ -1,23 +1,30 @@
-import chalk from "chalk";
 import fs from "fs";
+import chalk from "chalk";
 
-// adding note
+// adding notes
 export const addNote = (title, body) => {
   const notes = loadNotes();
 
-  const duplicateNote = notes.find((note) => note.title === title);
+  const duplicateNote = notes.find(
+    (note) => note.title === title || note.body === body
+  );
 
   if (!duplicateNote) {
-    notes.push({ title, body });
+    notes.push({
+      title,
+      body,
+    });
+
     saveNotes(notes);
-    console.log(chalk.green.inverse("new note added"));
+    console.log(chalk.green.inverse("note added successfully"));
   } else {
-    console.log(chalk.red.inverse("note already exists"));
+    console.log(chalk.inverse.red("note already exist"));
   }
 };
 
-// loading notes data
-export const loadNotes = () => {
+// loading notes
+
+const loadNotes = () => {
   try {
     const dataBuffer = fs.readFileSync("notes.json");
     const dataJSON = dataBuffer.toString();
@@ -27,26 +34,9 @@ export const loadNotes = () => {
   }
 };
 
-// saving notes data
+// saving notes
 
-export const saveNotes = (notes) => {
-  const dataJSON = JSON.stringify(notes);
+const saveNotes = (note) => {
+  const dataJSON = JSON.stringify(note);
   fs.writeFileSync("notes.json", dataJSON);
-};
-
-// removing note
-
-export const removeNote = (title, body) => {
-  const notes = loadNotes();
-
-  const noteData = notes.filter(
-    (note) => note.title !== title || note.body !== body
-  );
-
-  if (noteData.length < notes.length) {
-    saveNotes(noteData);
-    console.log(chalk.green.inverse("note removed successfully"));
-  } else {
-    console.log(chalk.red.inverse("No not found for remove"));
-  }
 };
