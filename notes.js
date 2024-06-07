@@ -40,3 +40,20 @@ const saveNotes = (note) => {
   const dataJSON = JSON.stringify(note);
   fs.writeFileSync("notes.json", dataJSON);
 };
+
+// removing notes
+
+export const removeNotes = (title, body) => {
+  const notes = loadNotes();
+
+  const updatedNotes = notes.filter(
+    (note) => note.title !== title || note.body !== body
+  );
+
+  if (updatedNotes.length < notes.length) {
+    saveNotes(updatedNotes);
+    console.log(chalk.green.inverse("note removed successfully"));
+  } else {
+    console.log(chalk.red.inverse("No note found for remove"));
+  }
+};
