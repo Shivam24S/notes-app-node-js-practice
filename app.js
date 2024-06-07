@@ -1,6 +1,6 @@
 import Yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { addNote, removeNotes } from "./notes.js";
+import { addNote, listNotes, removeNotes } from "./notes.js";
 
 Yargs(hideBin(process.argv))
   .command({
@@ -39,5 +39,11 @@ Yargs(hideBin(process.argv))
     },
     handler(argv) {
       removeNotes(argv.title, argv.body);
+    },
+  })
+  .command({
+    command: "list",
+    handler(argv) {
+      listNotes(argv.title, argv.body);
     },
   }).argv;

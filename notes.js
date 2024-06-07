@@ -57,3 +57,14 @@ export const removeNotes = (title, body) => {
     console.log(chalk.red.inverse("No note found for remove"));
   }
 };
+
+// list notes
+
+export const listNotes = () => {
+  const notes = loadNotes();
+  console.log(chalk.green.inverse("notes Details"));
+  notes.forEach((note) => {
+    console.log(note.title);
+    console.log(note.body);
+  });
+};
