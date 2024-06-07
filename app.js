@@ -62,6 +62,6 @@ Yargs(hideBin(process.argv))
       },
     },
     handler(argv) {
-      readNotes(argv.title);
+      readNotes(argv.title, argv.body);
     },
   }).argv;
