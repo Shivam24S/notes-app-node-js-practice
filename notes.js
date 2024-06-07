@@ -68,3 +68,19 @@ export const listNotes = () => {
     console.log(note.body);
   });
 };
+
+// reading notes
+
+export const readNotes = (title, body) => {
+  const notes = loadNotes();
+
+  const findNote = notes.find(
+    (note) => note.title === title || note.body === body
+  );
+  if (findNote) {
+    console.log(chalk.green.inverse(findNote.title));
+    console.log(chalk.green.inverse(findNote.body));
+  } else {
+    console.log(chalk.red.inverse("No notes found for this data"));
+  }
+};
